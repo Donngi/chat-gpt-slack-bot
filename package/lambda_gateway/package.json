@@ -1,0 +1,23 @@
+{
+  "name": "lambda_gateway",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jimon-s/chat-gpt-slack-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jimon-s/chat-gpt-slack-bot/issues"
+  },
+  "homepage": "https://github.com/Jimon-s/chat-gpt-slack-bot#readme",
+  "description": "",
+  "dependencies": {
+    "@slack/bolt": "^3.12.2"
+  }
+}
