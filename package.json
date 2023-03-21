@@ -4,7 +4,9 @@
   "description": "Simple slack chat bot using ChatGPT API.",
   "main": "index.js",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "lint": "eslint src/**/*",
+    "fmt": "prettier . --write"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/Jimon-s/chat-gpt-slack-bot/issues"
   },
-  "homepage": "https://github.com/Jimon-s/chat-gpt-slack-bot#readme"
+  "homepage": "https://github.com/Jimon-s/chat-gpt-slack-bot#readme",
+  "dependencies": {
+    "@slack/bolt": "^3.12.2"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "^2.8.5"
+  }
 }
