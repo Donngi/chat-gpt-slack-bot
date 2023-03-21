@@ -38,3 +38,9 @@ resource "aws_api_gateway_deployment" "chat_gpt_slack_bot" {
     create_before_destroy = true
   }
 }
+
+resource "aws_api_gateway_stage" "main" {
+  deployment_id = aws_api_gateway_deployment.chat_gpt_slack_bot.id
+  rest_api_id   = aws_api_gateway_rest_api.chat_gpt_slack_bot.id
+  stage_name    = "main"
+}
