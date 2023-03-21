@@ -1,0 +1,19 @@
+{
+  "name": "chat-gpt-slack-bot",
+  "version": "1.0.0",
+  "description": "Simple slack chat bot using ChatGPT API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jimon-s/chat-gpt-slack-bot.git"
+  },
+  "author": "Jimon-s",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jimon-s/chat-gpt-slack-bot/issues"
+  },
+  "homepage": "https://github.com/Jimon-s/chat-gpt-slack-bot#readme"
+}
