@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "esbuild src/index.ts --bundle --sourcemap --platform=node --format=esm --outfile=dist/index.mjs"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,10 @@
   "homepage": "https://github.com/Jimon-s/chat-gpt-slack-bot#readme",
   "dependencies": {
     "@slack/bolt": "^3.12.2"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-ssm": "^3.295.0",
+    "@types/aws-lambda": "^8.10.114",
+    "esbuild": "^0.17.12"
   }
 }
