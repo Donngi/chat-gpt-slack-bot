@@ -11,7 +11,7 @@ const packageLockJSONPath = "../../package-lock.json";
 
 await esbuild.build({
   entryPoints: ["src/index.ts"],
-  outdir: outdir,
+  outfile: `${outdir}/index.mjs`,
   platform: "node",
   format: "esm",
   minify: true,
