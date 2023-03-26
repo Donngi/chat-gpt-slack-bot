@@ -1,6 +1,7 @@
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
-import { GetParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
+import { SSMClient } from "@aws-sdk/client-ssm";
 import { WebClient } from "@slack/web-api";
+import { getOpenAIApiKey, getSlackBotUserToken } from "./secrets";
 
 type Props = {
   thread_ts: string;
@@ -11,36 +12,7 @@ type Props = {
 
 const ssmClient = new SSMClient({});
 
-const getSlackBotUserToken = async (ssmClient: SSMClient) => {
-  const res = await ssmClient.send(
-    new GetParameterCommand({
-      Name: process.env.SSM_KEY_SLACK_USER_TOKEN,
-      WithDecryption: true,
-    })
-  );
-
-  if (res.Parameter?.Value === undefined) {
-    throw new Error("Failed to get a secret from SSM Parameter Store.");
-  }
-
-  return res.Parameter.Value;
-};
 const slackBotUserToken = await getSlackBotUserToken(ssmClient);
-
-const getOpenAIApiKey = async (ssmClient: SSMClient) => {
-  const res = await ssmClient.send(
-    new GetParameterCommand({
-      Name: process.env.SSM_KEY_OPEN_AI_API_KEY,
-      WithDecryption: true,
-    })
-  );
-
-  if (res.Parameter?.Value === undefined) {
-    throw new Error("Failed to get a secret from SSM Parameter Store.");
-  }
-
-  return res.Parameter.Value;
-};
 const OpenAIApiKey = await getOpenAIApiKey(ssmClient);
 
 export const handler = async (event: Props) => {

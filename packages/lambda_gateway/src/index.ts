@@ -3,40 +3,12 @@ import { GetParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
 import { LambdaClient, InvokeCommand } from "@aws-sdk/client-lambda";
 import { APIGatewayProxyHandler } from "aws-lambda";
 import { ChatCompletionRequestMessage } from "openai";
+import { getSlackBotUserToken, getSlackSigningSecret } from "./secrets";
 
 // Init - Get secrets from SSM Parameter Store.
 const ssmClient = new SSMClient({});
 
-const getSlackSigningSecret = async (ssmClient: SSMClient) => {
-  const res = await ssmClient.send(
-    new GetParameterCommand({
-      Name: process.env.SSM_KEY_SLACK_SIGNING_SECRET,
-      WithDecryption: true,
-    })
-  );
-
-  if (res.Parameter?.Value === undefined) {
-    throw new Error("Failed to get a secret from SSM Parameter Store.");
-  }
-
-  return res.Parameter.Value;
-};
 const slackSigningSecret = await getSlackSigningSecret(ssmClient);
-
-const getSlackBotUserToken = async (ssmClient: SSMClient) => {
-  const res = await ssmClient.send(
-    new GetParameterCommand({
-      Name: process.env.SSM_KEY_SLACK_USER_TOKEN,
-      WithDecryption: true,
-    })
-  );
-
-  if (res.Parameter?.Value === undefined) {
-    throw new Error("Failed to get a secret from SSM Parameter Store.");
-  }
-
-  return res.Parameter.Value;
-};
 const slackBotUserToken = await getSlackBotUserToken(ssmClient);
 
 // Slack bot config
