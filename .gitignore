@@ -348,3 +348,4 @@ terraform.rc
 
 ### Project specific
 .terraform.lock.hcl
+local_tmp
