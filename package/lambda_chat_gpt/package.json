@@ -18,10 +18,11 @@
   },
   "homepage": "https://github.com/Jimon-s/chat-gpt-slack-bot#readme",
   "dependencies": {
-    "@slack/bolt": "^3.12.2"
+    "@slack/bolt": "^3.12.2",
+    "openai": "^3.2.1"
   },
   "devDependencies": {
-    "@aws-sdk/client-ssm": "^3.295.0",
+    "@aws-sdk/client-ssm": "^3.299.0",
     "@types/aws-lambda": "^8.10.114",
     "esbuild": "^0.17.12"
   }

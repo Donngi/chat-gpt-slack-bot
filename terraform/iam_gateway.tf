@@ -29,8 +29,7 @@ resource "aws_iam_policy" "lambda_gateway" {
           "ssm:GetParameter",
         ],
         "Resource" : [
-          data.aws_ssm_parameter.chat_gpt_api_key.arn,
-          data.aws_ssm_parameter.user_token.arn,
+          data.aws_ssm_parameter.bot_user_token.arn,
           data.aws_ssm_parameter.signing_secret.arn,
         ],
       },
@@ -45,7 +44,7 @@ resource "aws_iam_policy" "lambda_gateway" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "name" {
+resource "aws_iam_role_policy_attachment" "lambda_gateway" {
   role       = aws_iam_role.lambda_gateway.name
   policy_arn = aws_iam_policy.lambda_gateway.arn
 }

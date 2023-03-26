@@ -2,6 +2,7 @@ import { App, AwsLambdaReceiver } from "@slack/bolt";
 import { GetParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
 import { LambdaClient, InvokeCommand } from "@aws-sdk/client-lambda";
 import { APIGatewayProxyHandler } from "aws-lambda";
+import { ChatCompletionRequestMessage } from "openai";
 
 // Init - Get secrets from SSM Parameter Store.
 const ssmClient = new SSMClient({});
@@ -71,6 +72,26 @@ app.event("app_mention", async ({ event, client, say }) => {
       channel: event.channel,
       ts: threadTs,
     });
+    if (replies.messages === undefined) {
+      throw Error("Failed to get thread messages.");
+    }
+
+    const botUserId = (await client.auth.test()).bot_id;
+    if (botUserId === undefined) {
+      throw Error("Failed to get bot user id.");
+    }
+
+    const threadMessages: ChatCompletionRequestMessage[] =
+      replies.messages.flatMap((message) => {
+        if (message.text === undefined) {
+          return [];
+        }
+
+        return {
+          role: message.user === botUserId ? "assistant" : "user",
+          content: message.text.replace(`<@${botUserId}>`, ""),
+        };
+      });
 
     const lambdaClient = new LambdaClient({});
     await lambdaClient.send(
@@ -80,7 +101,8 @@ app.event("app_mention", async ({ event, client, say }) => {
         Payload: Buffer.from(
           JSON.stringify({
             thread_ts: threadTs,
-            thread_messages: replies,
+            thread_messages: threadMessages,
+            channel: event.channel,
             wait_a_moment_ts: resSay.message?.ts,
           })
         ),
@@ -97,7 +119,6 @@ export const handler: APIGatewayProxyHandler = async (
   context,
   callback
 ) => {
-  console.log(JSON.parse(event.body!));
   const awsLambdaReceiverHandler = await awsLambdaReceiver.start();
   return awsLambdaReceiverHandler(event, context, callback);
 };

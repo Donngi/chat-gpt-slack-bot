@@ -16,7 +16,8 @@ resource "aws_lambda_function" "chat_gpt" {
 
   environment {
     variables = {
-      SSM_KEY_CHAT_GPT_API_KEY = data.aws_ssm_parameter.chat_gpt_api_key.name
+      SSM_KEY_OPEN_AI_API_KEY  = data.aws_ssm_parameter.chat_gpt_api_key.name
+      SSM_KEY_SLACK_USER_TOKEN = data.aws_ssm_parameter.bot_user_token.name
     }
   }
 

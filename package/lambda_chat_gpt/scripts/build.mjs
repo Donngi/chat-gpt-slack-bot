@@ -3,7 +3,7 @@ import pkg from "../package.json" assert { type: "json" };
 import { execSync } from "child_process";
 import { writeFileSync } from "fs";
 
-const unbundleModules = ["@slack/bolt"];
+const unbundleModules = ["@aws-sdk/*"];
 
 // From package root.
 const outdir = "./dist";
@@ -14,10 +14,13 @@ await esbuild.build({
   outfile: `${outdir}/index.mjs`,
   platform: "node",
   format: "esm",
-  minify: true,
+  minify: false,
   sourcemap: true,
   bundle: true,
   external: unbundleModules,
+  banner: {
+    js: "import { createRequire } from 'module';const require = createRequire(import.meta.url);",
+  },
 });
 
 const extractedDependencies = Object.keys(pkg.dependencies)
