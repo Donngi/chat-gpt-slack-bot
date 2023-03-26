@@ -16,8 +16,8 @@ resource "aws_lambda_function" "gateway" {
 
   environment {
     variables = {
-      SSM_KEY_CHAT_SLACK_USER_TOKEN    = data.aws_ssm_parameter.user_token.name
-      SSM_KEY_CHAT_SLACK_SIGING_SECRET = data.aws_ssm_parameter.signing_secret.name
+      SSM_KEY_SLACK_SIGNING_SECRET = data.aws_ssm_parameter.signing_secret.name
+      SSM_KEY_SLACK_USER_TOKEN     = data.aws_ssm_parameter.user_token.name
     }
   }
 
