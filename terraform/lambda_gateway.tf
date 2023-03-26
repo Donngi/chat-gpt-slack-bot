@@ -1,6 +1,6 @@
 data "archive_file" "lambda_gateway_src" {
   type        = "zip"
-  source_dir  = "../package/lambda_gateway/dist"
+  source_dir  = "../packages/lambda_gateway/dist"
   output_path = "lambda_gateway.zip"
 }
 

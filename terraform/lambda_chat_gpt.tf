@@ -1,6 +1,6 @@
 data "archive_file" "lambda_chat_gpt_src" {
   type        = "zip"
-  source_dir  = "../package/lambda_chat_gpt/dist"
+  source_dir  = "../packages/lambda_chat_gpt/dist"
   output_path = "lambda_chat_gpt.zip"
 }
 
