@@ -18,6 +18,7 @@ resource "aws_lambda_function" "gateway" {
     variables = {
       SSM_KEY_SLACK_SIGNING_SECRET = data.aws_ssm_parameter.signing_secret.name
       SSM_KEY_SLACK_USER_TOKEN     = data.aws_ssm_parameter.user_token.name
+      CHAT_GPT_LAMBDA_ARN          = aws_lambda_function.chat_gpt.arn
     }
   }
 
